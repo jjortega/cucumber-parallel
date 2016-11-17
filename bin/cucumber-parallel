@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "cucumber_parallel"
+
+# default options
+url = "http://0.0.0.0:4444"
+features_path = "features"
+
+# parse arguments
+file = __FILE__
+ARGV.options do |opts|
+  opts.on("-u", "--url=val", String)   { |val| url = val }
+  opts.on("-f", "--features_path=val", String)   { |val| features_path = val }
+  opts.on_tail("-h", "--help")         { exec "grep ^#/<'#{file}'|cut -c4-" }
+  opts.parse!
+end
+
+CucumberParallel::Mode.split_features(url,features_path)
