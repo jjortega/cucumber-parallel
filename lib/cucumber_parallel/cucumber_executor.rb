@@ -10,7 +10,7 @@ module CucumberParallel
       randomNumber = Random.rand(1000)
       deviceName = node.name
       #cmd = "DEVICE_NAME='#{deviceName}' cucumber -p android #{feature_path} --format pretty --format html --out results/cucumber#{randomNumber}.html --format json --out results/cucumber#{randomNumber}.json"
-      cmd = "DEVICE_NAME='#{deviceName}' cucumber #{feature_path} --format pretty --format html --out results/cucumber#{randomNumber}.html --format json --out results/cucumber#{randomNumber}.json"
+      cmd = "DEVICE_NAME='#{deviceName}' cucumber -p android #{feature_path} --format pretty --format html --out results/cucumber#{randomNumber}.html --format json --out results/cucumber#{randomNumber}.json"
       p "Running: #{cmd}"
       @result = %x(#{cmd})
       sleep(10)
