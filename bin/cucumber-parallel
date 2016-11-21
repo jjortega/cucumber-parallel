@@ -3,17 +3,29 @@
 require "bundler/setup"
 require "cucumber_parallel"
 
-# default options
-url = "http://0.0.0.0:4444"
-features_path = "features"
-
 # parse arguments
-file = __FILE__
-ARGV.options do |opts|
-  opts.on("-u", "--url=val", String)   { |val| url = val }
-  opts.on("-f", "--features_path=val", String)   { |val| features_path = val }
-  opts.on_tail("-h", "--help")         { exec "grep ^#/<'#{file}'|cut -c4-" }
-  opts.parse!
+def parse(args)
+  # The options specified on the command line will be collected in *options*.
+  # We set default values here.
+  options = {}
+
+  opt_parser = OptionParser.new do |opts|
+    opts.on("-f ", "--feature-path ", "Feature path", String) { |val| options[:feature_path] = val}
+    opts.on("-u ", "--url ", "Url to selenium grid", String) {|val| options[:url] = val}
+  end
+
+  opt_parser.parse!(args)
+  options
 end
 
-CucumberParallel::Mode.split_features(url,features_path)
+def split_options(args)
+  cucumber_parallel_valid_options = ["-f", "--feature-path", "-u", "--url"]
+  args_in_pairs = args.each_slice(2)
+  cucumber_args = args_in_pairs.to_a.delete_if {|x| cucumber_parallel_valid_options.include? x[0] }.flatten
+  cucumber_parallel_args = args_in_pairs.to_a.select {|x| cucumber_parallel_valid_options.include? x[0] }.flatten
+  return cucumber_args, cucumber_parallel_args
+end
+cucumber_args, cucumber_parallel_args = split_options(ARGV)
+cucumber_parallel_options = parse(cucumber_parallel_args)
+
+CucumberParallel::Mode.split_features(cucumber_parallel_options,cucumber_args)
