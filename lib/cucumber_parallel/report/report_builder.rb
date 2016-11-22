@@ -10,6 +10,7 @@ module CucumberParallel
       @output_file = out_path + "/cucumber"
       @tmp_path = tmp_path
       create_folder(@tmp_path)
+      create_folder(@tmp_path + "../logs")
     end
 
     def configure
@@ -25,7 +26,6 @@ module CucumberParallel
     end
 
     def merge()
-      create_folder(@output_file)
       ReportBuilder.configure do |config|
         config.json_path = @tmp_path
         config.report_path = @output_file
