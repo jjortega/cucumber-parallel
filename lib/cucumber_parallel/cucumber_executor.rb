@@ -1,4 +1,5 @@
 require 'celluloid/autostart'
+require 'securerandom'
 
 module CucumberParallel
   class CucumberExecutor
@@ -7,12 +8,12 @@ module CucumberParallel
 
     def run(node, feature_path, cucumber_configuration)
       node.lock
-      randomNumber = Random.rand(1000)
+      randomNumber = SecureRandom.uuid
       deviceName = node.name
       cucumber_options = cucumber_configuration[:options].join(' ')
       cmd = "DEVICE_NAME='#{deviceName}' cucumber #{cucumber_options} #{feature_path} --format json --out #{cucumber_configuration[:output_file]}/cucumber#{randomNumber}.json"
       p "Running: #{cmd}"
-      @result = %x(#{cmd})
+      @result = %x(#{cmd} > #{cucumber_configuration[:output_file]}/cucumber#{randomNumber}.log)
       node.release
       "Command End: #{cmd}"
     end
