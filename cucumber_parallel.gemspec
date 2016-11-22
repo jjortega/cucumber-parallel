@@ -26,7 +26,7 @@ Gem::Specification.new do |spec|
     f.match(%r{^(test|spec|features)/})
   end
   spec.bindir        = "bin"
-  spec.executables   << "cucumber_parallel"
+  spec.executables   = `git ls-files -- bin/cucumber-parallel`.split("\n").map{ |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler"
@@ -38,4 +38,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "nokogiri", "~> 1.6"
   spec.add_development_dependency "httparty", "~> 0.13"
   spec.add_development_dependency "byebug", "~> 9.0"
+  spec.add_development_dependency "report_builder", "~> 0.1.2"
 end
