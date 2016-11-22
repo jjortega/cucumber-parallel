@@ -4,8 +4,6 @@ require "selenium_grid_console_parser"
 
 require "cucumber_parallel/cucumber_executor"
 
-require "byebug"
-
 module CucumberParallel
   class CucumberThreadHandler
     def initialize(nodes)

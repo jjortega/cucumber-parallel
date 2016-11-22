@@ -1,5 +1,6 @@
 require 'report_builder'
 require 'fileutils'
+require 'securerandom'
 
 module CucumberParallel
   class ReportMergeBuilder
@@ -8,7 +9,7 @@ module CucumberParallel
 
     def initialize(out_path, tmp_path='reports/tmp')
       @output_file = out_path + "/cucumber"
-      @tmp_path = tmp_path
+      @tmp_path = tmp_path + "/" + SecureRandom.uuid
       create_folder(@tmp_path)
       create_folder(@tmp_path + "/../logs")
     end
