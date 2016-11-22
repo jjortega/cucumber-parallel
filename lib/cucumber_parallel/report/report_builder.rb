@@ -10,7 +10,7 @@ module CucumberParallel
       @output_file = out_path + "/cucumber"
       @tmp_path = tmp_path
       create_folder(@tmp_path)
-      create_folder(@tmp_path + "../logs")
+      create_folder(@tmp_path + "/../logs")
     end
 
     def configure
