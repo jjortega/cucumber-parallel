@@ -7,11 +7,12 @@ require "cucumber_parallel"
 def parse(args)
   # The options specified on the command line will be collected in *options*.
   # We set default values here.
-  options = {}
+  options = {feature_path: "features", url: "http://0.0.0.0:4444", output_file: "reports"} # Default options
 
   opt_parser = OptionParser.new do |opts|
     opts.on("-f ", "--feature-path ", "Feature path", String) { |val| options[:feature_path] = val}
     opts.on("-u ", "--url ", "Url to selenium grid", String) {|val| options[:url] = val}
+    opts.on("-o ", "--output ", "Path for resutls", String) {|val| options[:output_file] = val}
   end
 
   opt_parser.parse!(args)
@@ -19,7 +20,7 @@ def parse(args)
 end
 
 def split_options(args)
-  cucumber_parallel_valid_options = ["-f", "--feature-path", "-u", "--url"]
+  cucumber_parallel_valid_options = ["-f", "--feature-path", "-u", "--url","-o","--output"]
   args_in_pairs = args.each_slice(2)
   cucumber_args = args_in_pairs.to_a.delete_if {|x| cucumber_parallel_valid_options.include? x[0] }.flatten
   cucumber_parallel_args = args_in_pairs.to_a.select {|x| cucumber_parallel_valid_options.include? x[0] }.flatten
