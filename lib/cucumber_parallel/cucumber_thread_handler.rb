@@ -18,6 +18,7 @@ module CucumberParallel
         if @nodes.any_node_is_free?
           node = @nodes.first_available_node
           futures.push cucumber_pool_executor.future.run(node, features_path.pop, cucumber_configuration)
+          sleep(1)
         end
       end
       futures.each do |f|
