@@ -13,7 +13,7 @@ module CucumberParallel
       cucumber_options = cucumber_configuration[:options].join(' ')
       cmd = "DEVICE_NAME='#{deviceName}' cucumber #{cucumber_options} #{feature_path} --format json --out #{cucumber_configuration[:output_file]}/cucumber#{randomNumber}.json"
       p "Running: #{cmd}"
-      @result = %x(#{cmd} > #{cucumber_configuration[:output_file]}/../logs/cucumber#{randomNumber}.log)
+      @result = %x(#{cmd} &> #{cucumber_configuration[:output_file]}/../logs/cucumber#{randomNumber}.log)
       node.release
       p "Command End: #{cmd}"
     end
