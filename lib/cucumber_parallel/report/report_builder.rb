@@ -36,7 +36,6 @@ module CucumberParallel
         config.compress_images = @options[:compress_images]
         config.additional_info = @options[:additional_info]
       end
-      byebug
       ReportBuilder.build_report
     end
 
