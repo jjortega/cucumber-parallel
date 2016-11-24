@@ -15,7 +15,9 @@ module CucumberParallel
       report = ReportMergeBuilder.new(cucumber_parallel_options[:output_file])
       report.configure
       cucumber_configuration = {options: cucumber_options, output_file: report.tmp_path}
-      cucumber_thread_handler.run(feaures_path.to_a,cucumber_configuration)
+      begin
+        cucumber_thread_handler.run(feaures_path.to_a,cucumber_configuration)
+      end
       report.merge
     end
   end
