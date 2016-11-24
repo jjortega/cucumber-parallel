@@ -15,7 +15,7 @@ module CucumberParallel
       p "Running: #{cmd}"
       @result = %x(#{cmd} > #{cucumber_configuration[:output_file]}/../logs/cucumber#{randomNumber}.log)
       node.release
-      "Command End: #{cmd}"
+      p "Command End: #{cmd}"
     end
   end
 end

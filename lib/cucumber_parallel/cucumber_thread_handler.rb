@@ -22,8 +22,9 @@ module CucumberParallel
         end
       end
       futures.each do |f|
-        p f.value
+        f.value
       end
+      p "Finish!!"
     end
   end
 end
