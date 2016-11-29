@@ -16,16 +16,14 @@ module CucumberParallel
       futures = []
       while features_path.size > 0 do
         p "Executions remaining: #{features_path.size}"
-        if @nodes.any_node_is_free?
-          node = @nodes.first_available_node
-          futures.push cucumber_pool_executor.future.run(node, features_path.pop, cucumber_configuration)
-          sleep(1)
-        end
+        node = @nodes.first_available_node
+        futures.push cucumber_pool_executor.future.run(node, features_path.pop, cucumber_configuration)
+        sleep(1)
       end
       futures.each do |f|
         f.value
       end
-      p "Finish!!"
+      p "Finished!!"
     end
   end
 end
