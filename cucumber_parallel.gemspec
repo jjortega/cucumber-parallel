@@ -37,6 +37,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubysl-open3", "~> 2.0"
   spec.add_development_dependency "nokogiri", "~> 1.6"
   spec.add_development_dependency "httparty", "~> 0.13"
-  spec.add_development_dependency "byebug", "~> 9.0"
+  spec.add_development_dependency "selenium-grid-parser"
   spec.add_development_dependency "report_builder", "~> 0.1.2"
 end
