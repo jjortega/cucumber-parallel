@@ -15,10 +15,12 @@ module CucumberParallel
       cucumber_pool_executor = CucumberExecutor.pool(size: @nodes.size)
       futures = []
       while features_path.size > 0 do
-        p "Executions remaining: #{features_path.size}"
-        node = @nodes.first_available_node
-        futures.push cucumber_pool_executor.future.run(node, features_path.pop, cucumber_configuration)
-        sleep(1)
+        if @nodes.any_node_is_free?
+          node = @nodes.first_available_node
+          futures.push cucumber_pool_executor.future.run(node, features_path.pop, cucumber_configuration)
+          p "Executions remaining: #{features_path.size}"
+          sleep(1)
+        end
       end
       futures.each do |f|
         f.value
